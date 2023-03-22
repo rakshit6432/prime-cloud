@@ -38,9 +38,6 @@ COPY . .
 
 # Install Laravel dependencies
 RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
-RUN php artisan key:generate
-RUN php artisan setup:prod
-
 
 # Expose ports
 EXPOSE 80
