@@ -1,33 +1,23 @@
-version: "3"
+version: '3'
 
 services:
   web:
-    image: nginx:alpine
-    container_name: prime_cloud
-    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: prime-apache-app
+    container_name: prime-apache-container
     ports:
-      - "8080:80"
+      - "8000:8000"
     volumes:
-      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
-      - https://github.com/rakshit6432/prime-cloud.git:/var/www/html
+      - .:/var/www/
     depends_on:
-      - php
       - db
 
-  php:
-    image: php:8.1-fpm-alpine
-    container_name: prime_cloud_app
-    volumes:
-      - https://github.com/rakshit6432/prime-cloud.git:/var/www/html
-
   db:
-    image: mysql:8.0
-    container_name: prime-prime_cloud_db
-    restart: always
+    image: mysql:5.6
+    container_name: prime-mysql-container
     environment:
-      MYSQL_DATABASE: prime_cloud
-      MYSQL_USER: root
-      MYSQL_PASSWORD: Ayush3602@
       MYSQL_ROOT_PASSWORD: Ayush3602@
     ports:
       - "3306:3306"

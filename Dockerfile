@@ -1,44 +1,26 @@
-# Use an official PHP runtime as a parent image
-FROM php:8.1-fpm-alpine
+FROM php:8.1.0-apache
 
 # Install necessary packages
-RUN apk add --no-cache \
-    bash \
-    nginx \
-    supervisor \
+RUN apt-get update && \
+    apt-get install -y \
     curl \
     libpng-dev \
-    libjpeg-turbo-dev \
-    libwebp-dev \
-    zlib-dev \
-    libxpm-dev \
-    freetype-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     libzip-dev \
-    icu-dev \
-    g++ \
-    make \
-    autoconf \
-    openssl-dev
+    unzip \
+    git \
+    && docker-php-ext-install pdo_mysql mysqli gd zip
 
-# Configure PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
-    && docker-php-ext-install pdo_mysql gd zip intl opcache bcmath
-
-# Install Node.js and NPM
-RUN apk add --no-cache nodejs npm
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
 # Set the working directory
-WORKDIR /var/www/html
+WORKDIR /var/www/
 
 # Copy the application files
 COPY . .
 
-# Install Laravel dependencies
-RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
 
 # Expose ports
-EXPOSE 80
-
+EXPOSE 8000
