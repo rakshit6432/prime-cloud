@@ -38,13 +38,10 @@ COPY . .
 
 # Install Laravel dependencies
 RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
+RUN php artisan key:generate
+RUN php artisan setup:prod
 
-# Build the Vue.js app
-RUN npm install
-RUN npm run production
 
 # Expose ports
 EXPOSE 80
 
-# Start services
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
