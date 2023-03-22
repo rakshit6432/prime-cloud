@@ -21,6 +21,7 @@ class GetDashboardDataController extends Controller
             ->where('type', 'charge')
             ->sum('amount');
 
+        // TODO: PHP_BINDIR constant if PHP_BINARY is not available
         return response()->json([
             'users' => [
                 'total'             => User::count(),
@@ -38,7 +39,10 @@ class GetDashboardDataController extends Controller
                 ],
             ],
             'app'   => [
-                'isRunningCron'             => isRunningCron(),
+                'cron' => [
+                    'isRunning' => isRunningCron(),
+                    'command'   => getCronCommandSuggestions(),
+                ],
                 'license'                   => get_settings('license'),
                 'version'                   => config('vuefilemanager.version'),
                 'earnings'                  => format_currency($totalEarnings, 'USD'), // todo: refactor currency to global setup or plan currency

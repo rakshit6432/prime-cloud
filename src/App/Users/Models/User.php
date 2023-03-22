@@ -3,6 +3,7 @@ namespace App\Users\Models;
 
 use ByteUnits\Metric;
 use Illuminate\Support\Str;
+use BadMethodCallException;
 use Domain\Files\Models\File;
 use Domain\Folders\Models\Folder;
 use Laravel\Sanctum\HasApiTokens;
@@ -89,6 +90,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
+    }
+
+    public function preferredLocale(): string
+    {
+        return get_settings('language') ?? 'en';
     }
 
     /**
@@ -196,10 +202,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function __call($method, $parameters)
     {
-        if (str_starts_with($method, 'can')) {
-            return resolve(RestrictionsManager::class)
-                ->driver()
-                ->$method($this, ...$parameters);
+        try {
+            if (str_starts_with($method, 'can') || str_starts_with($method, 'get')) {
+                return resolve(RestrictionsManager::class)
+                    ->driver()
+                    ->$method($this, ...$parameters);
+            }
+        } catch (BadMethodCallException $e) {
+            return parent::__call($method, $parameters);
         }
 
         return parent::__call($method, $parameters);

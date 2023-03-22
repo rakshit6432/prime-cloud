@@ -74,7 +74,6 @@
 			chunkSize: {{ $config->upload->chunkSize }},
 
 			isAuthenticated: {{ $config->app->isAuthenticated }},
-			isSaaS: {{ $config->app->isSaaS }},
 
 			isDev: {{ $config->app->isDev }},
 			isDemo: {{ $config->app->isDemo }},
@@ -150,6 +149,9 @@
             // App settings
 			userRegistration: {{ $config->registration->allowed }},
 			userVerification: {{ $config->registration->verification }},
+
+            // Google Analytics
+            googleAnalytics: '{{ $config->google_analytics }}',
         }
     </script>
 
@@ -157,18 +159,6 @@
 
         {{--Application production script--}}
         <script src="{{ asset('js/main.js') }}?v={{ get_version() }}"></script>
-
-        {{--Global site tag (gtag.js) - Google Analytics--}}
-        @if(isset($config->google_analytics) && $config->google_analytics)
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{ $config->google_analytics }}"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '{{ $config->google_analytics }}');
-            </script>
-        @endif
     @else
         {{--Application development script--}}
         <script src="{{ mix('js/main.js') }}"></script>

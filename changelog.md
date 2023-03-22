@@ -1,3 +1,83 @@
+## Version 2.2.7
+#### Release date: 20. August 2022
+- fixed upload button issue in mobile
+
+## Version 2.2.6
+#### Release date: 17. August 2022
+- fixed upload button issue
+
+## Version 2.2.5
+#### Release date: 11. August 2022
+- improved tracking for Google Analytics
+
+## Version 2.2.4
+#### Release date: 8. August 2022
+- Account verification email is now sending in preferred app language
+- Fixed issue where metered billing mode still count in some cases members after team folder was deleted
+- In case if cron isn't set, in Settings/Server tab you will see suggestions for cron command
+
+## Version 2.2.3
+#### Release date: 6. August 2022
+- Subscription module is now available for Regular license type 
+
+## Version 2.2.2
+#### Release date: 16. July 2022
+- Fixed issue when email wasn't sent in active app language
+- Fixed issue with subscription module loading
+
+## Version 2.2.1
+#### Release date: 1. July 2022
+### New Usage Restriction Rules for User Accounts for Metered Billing
+- Allow limiting max usage before users will be forced to increase balance in first month of account existence
+- Force users to increase balance when usage is bigger than their current balance
+
+#### Release date: 29. Jun 2022
+- Fixed reCaptcha for the contact form
+
+## Version 2.2.0.13
+#### Release date: 29. Jun 2022
+- Extended login time up to 3 months
+- Fixed deleted at language string in grid view browsed in trash section
+
+- ## Version 2.2.0.12
+#### Release date: 28. Jun 2022
+- Fixed paystack transaction issue
+
+## Version 2.2.0.11
+#### Release date: 27. Jun 2022
+- Added hint to set cron command in dashboard panel when cron is not set correctly
+
+## Version 2.2.0.10
+#### Release date: 27. Jun 2022
+- Fixed issue with downloading certain file types when you are using Backblaze storage driver
+- Fixed issue when Google Analytics doesn't record visitors
+
+## Version 2.2.0.9
+#### Release date: 23. Jun 2022
+- Added spinner when pdf is loading
+- Set sandbox/live mode in PayPal key configuration setup form
+- Fixed issue when after deleting user, the related subscription wasn't deleted
+- Fixed issue when you perform composer update with private repository
+- Fixed issue where change in sorting option will duplicate the content in file view
+- Fixed issue where Dragged & Dropped folder from desktop didn't start uploading
+- Fixed issue when you upload empty .txt file, it stops the upload process
+
+## Version 2.2.0.8
+#### Release date: 15. Jun 2022
+- Fixed issue when you tried switch to another language, the language stay same
+
+## Version 2.2.0.7
+#### Release date: 13. Jun 2022
+- Solved issue when you click on the PayPal logo it makes the new copy of the payment buttons
+
+## Version 2.2.0.6
+#### Release date: 13. Jun 2022
+- Solved issue when user wasn't redirected into stripe checkout
+
+## Version 2.2.0.5
+#### Release date: 12. Jun 2022
+- Solved issue with showing trash content (Affected since 2.2.0)
+
 ## Version 2.2
 #### Release date: 18. May 2022
 

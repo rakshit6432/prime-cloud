@@ -6,18 +6,16 @@ use DB;
 use PDOException;
 use Domain\Pages\Models\Page;
 use Monolog\Handler\MissingExtensionException;
+use Support\Status\Actions\GetServerSetupStatusAction;
 use VueFileManager\Subscription\Domain\Plans\Models\Plan;
-use Domain\Settings\Controllers\GetServerStatusController;
 use VueFileManager\Subscription\Domain\Transactions\Models\Transaction;
 use VueFileManager\Subscription\Domain\Subscriptions\Models\Subscription;
 
 class GetConfigAction
 {
     public function __construct(
-        public GetServerStatusController $getServerSetupStatus,
-    )
-    {
-    }
+        public GetServerSetupStatusAction $getServerSetupStatus,
+    ) {}
 
     public function __invoke(): array
     {
@@ -96,7 +94,6 @@ class GetConfigAction
                 'locale'          => app()->getLocale(),
                 'isDev'           => is_dev() ? 1 : 0,
                 'isDemo'          => config('vuefilemanager.is_demo') ? 1 : 0,
-                'isSaaS'          => $settings && optional($settings)->license === 'extended' ? 1 : 0,
                 'isAuthenticated' => $isUser ? 1 : 0,
                 'installation'    => $setupStatus ?? 'initial',
                 'name'            => $settings->app_title ?? 'VueFileManager',
@@ -202,6 +199,7 @@ class GetConfigAction
             'allowHomepage'       => intval($settings->allow_homepage ?? 1),
             'teamsDefaultMembers' => intval($settings->default_max_team_member ?? 10),
             'legal'               => $pages ? json_encode($pages) : 'undefined',
+            'google_analytics'    => optional($settings)->google_analytics ?? null,
         ];
     }
 }
